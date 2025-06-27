@@ -59,11 +59,11 @@
     .button-container {
       text-align: center;
     }
-    /* Print Form Styles */
-    #printFormsContainer {
+    /* Print Containers */
+    #printFormsContainer, #printJadualContainer {
       display: none;
     }
-    .print-form-page {
+    .print-form-page, .print-jadual-page {
       width: 100%;
       min-height: 100vh;
       padding: 20px;
@@ -108,11 +108,11 @@
       body * {
         visibility: hidden;
       }
-      #printFormsContainer,
-      #printFormsContainer * {
+      #printFormsContainer, #printFormsContainer *,
+      #printJadualContainer, #printJadualContainer * {
         visibility: visible;
       }
-      .print-form-page {
+      .print-form-page, .print-jadual-page {
         page-break-after: always;
         page-break-inside: avoid;
         position: relative;
@@ -124,21 +124,19 @@
       .no-print {
         display: none !important;
       }
-      #printFormsContainer {
+      #printFormsContainer, #printJadualContainer {
         display: block;
         position: absolute;
         top: 0;
         left: 0;
-      }
-      #jadual, #jadual * {
-        visibility: visible;
+        width: 100%;
       }
     }
   </style>
 </head>
 <body>
   <h1>KEJOHANAN HOKI MSSB MUKAH 2025</h1>
-  <img src="https://i.postimg.cc/MTFGgRwx/Chat-GPT-Image-Jun-14-2025-12-09-31-AM.png"  alt="Logo">
+  <img src="https://i.postimg.cc/MTFGgRwx/Chat-GPT-Image-Jun-14-2025-12-09-31-AM.png" alt="Logo">
   <h2>JADUAL PERLAWANAN<br><small>2 Julai 2025 hingga 3 Julai 2025</small></h2>
   
   <div class="button-container">
@@ -161,6 +159,7 @@
   </table>
 
   <div id="printFormsContainer"></div>
+  <div id="printJadualContainer"></div>
 
   <!-- Rujukan ke fail schedule.js -->
   <script src="schedule.js"></script>
@@ -184,8 +183,13 @@
 
     // Fungsi cetak borang perlawanan
     document.getElementById("cetakButton").addEventListener("click", function() {
+      // Sembunyikan container jadual jika ada
+      document.getElementById("printJadualContainer").style.display = "none";
+      document.getElementById("printJadualContainer").innerHTML = "";
+      
       const printContainer = document.getElementById("printFormsContainer");
       printContainer.innerHTML = "";
+      
       tournamentSchedule.forEach(match => {
         const formHTML = `
           <div class="print-form-page">
@@ -247,25 +251,31 @@
 
     // Fungsi cetak jadual
     document.getElementById("cetakJadualButton").addEventListener("click", function() {
-      // Simpan HTML asal
-      const originalContents = document.body.innerHTML;
+      // Sembunyikan container borang jika ada
+      document.getElementById("printFormsContainer").style.display = "none";
+      document.getElementById("printFormsContainer").innerHTML = "";
       
-      // Dapatkan HTML jadual sahaja
-      const jadual = document.getElementById("jadual").outerHTML;
+      const printContainer = document.getElementById("printJadualContainer");
+      printContainer.innerHTML = "";
       
-      // Gantikan seluruh body dengan jadual + header
-      document.body.innerHTML = `
-        <h1>KEJOHANAN HOKI MSSB MUKAH 2025</h1>
-        <h2>JADUAL PERLAWANAN<br><small>2 Julai 2025 hingga 3 Julai 2025</small></h2>
-        ${jadual}
-        <p style="text-align: center; margin-top: 20px;">Dicetak pada: ${new Date().toLocaleString()}</p>
+      const jadualHTML = `
+        <div class="print-jadual-page">
+          <h1>KEJOHANAN HOKI MSSB MUKAH 2025</h1>
+          <img src="https://i.postimg.cc/MTFGgRwx/Chat-GPT-Image-Jun-14-2025-12-09-31-AM.png" alt="Logo">
+          <h2>JADUAL PERLAWANAN<br><small>2 Julai 2025 hingga 3 Julai 2025</small></h2>
+          ${document.getElementById('jadual').outerHTML}
+          <p style="text-align: center; margin-top: 20px;">Dicetak pada: ${new Date().toLocaleString()}</p>
+        </div>
       `;
       
-      // Cetak
-      window.print();
+      printContainer.innerHTML = jadualHTML;
       
-      // Kembalikan HTML asal
-      document.body.innerHTML = originalContents;
+      // Papar dan cetak
+      printContainer.style.display = "block";
+      setTimeout(() => {
+        window.print();
+        printContainer.style.display = "none";
+      }, 300);
     });
   </script>
 </body>
