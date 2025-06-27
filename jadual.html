@@ -35,18 +35,29 @@
       background-color: #add8e6;
     }
     button {
-      display: block;
-      margin: 20px auto;
+      display: inline-block;
+      margin: 20px 10px;
       padding: 10px 20px;
-      background-color: #4CAF50;
       color: white;
       border: none;
       border-radius: 4px;
       cursor: pointer;
       font-size: 16px;
     }
-    button:hover {
+    #cetakButton {
+      background-color: #4CAF50;
+    }
+    #cetakJadualButton {
+      background-color: #2196F3;
+    }
+    #cetakButton:hover {
       background-color: #45a049;
+    }
+    #cetakJadualButton:hover {
+      background-color: #0b7dda;
+    }
+    .button-container {
+      text-align: center;
     }
     /* Print Form Styles */
     #printFormsContainer {
@@ -119,6 +130,9 @@
         top: 0;
         left: 0;
       }
+      #jadual, #jadual * {
+        visibility: visible;
+      }
     }
   </style>
 </head>
@@ -126,7 +140,11 @@
   <h1>KEJOHANAN HOKI MSSB MUKAH 2025</h1>
   <img src="https://i.postimg.cc/MTFGgRwx/Chat-GPT-Image-Jun-14-2025-12-09-31-AM.png"  alt="Logo">
   <h2>JADUAL PERLAWANAN<br><small>2 Julai 2025 hingga 3 Julai 2025</small></h2>
-  <button id="cetakButton" class="no-print">Cetak Borang Perlawanan</button>
+  
+  <div class="button-container">
+    <button id="cetakButton" class="no-print">Cetak Borang Perlawanan</button>
+    <button id="cetakJadualButton" class="no-print">Cetak Jadual</button>
+  </div>
 
   <table id="jadual">
     <thead>
@@ -225,6 +243,29 @@
         window.print();
         printContainer.style.display = "none";
       }, 300);
+    });
+
+    // Fungsi cetak jadual
+    document.getElementById("cetakJadualButton").addEventListener("click", function() {
+      // Simpan HTML asal
+      const originalContents = document.body.innerHTML;
+      
+      // Dapatkan HTML jadual sahaja
+      const jadual = document.getElementById("jadual").outerHTML;
+      
+      // Gantikan seluruh body dengan jadual + header
+      document.body.innerHTML = `
+        <h1>KEJOHANAN HOKI MSSB MUKAH 2025</h1>
+        <h2>JADUAL PERLAWANAN<br><small>2 Julai 2025 hingga 3 Julai 2025</small></h2>
+        ${jadual}
+        <p style="text-align: center; margin-top: 20px;">Dicetak pada: ${new Date().toLocaleString()}</p>
+      `;
+      
+      // Cetak
+      window.print();
+      
+      // Kembalikan HTML asal
+      document.body.innerHTML = originalContents;
     });
   </script>
 </body>
