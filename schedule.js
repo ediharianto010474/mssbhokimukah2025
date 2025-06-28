@@ -67,10 +67,12 @@ const tournamentSchedule = [
   { no: 29, groupId: 'B', category: 'Perempuan Bawah 15 Tahun (Kumpulan B)', team1: 'B4) SMK MUKAH', team2: 'B5) SMK DALAT', date: '3 Julai 2025', time: '11:40 AM' },
 
   // Perlawanan Knockout (C & D)
-  { no: 30, groupId: 'C/D', category: 'Lelaki Bawah 18 Tahun (Separuh Akhir 1)', team1: '[Johan Kumpulan C]', team2: '[Naib Johan Kumpulan D]', date: '3 Julai 2025', time: '02:00 PM' },
-  { no: 31, groupId: 'C/D', category: 'Lelaki Bawah 18 Tahun (Separuh Akhir 2)', team1: '[Johan Kumpulan D]', team2: '[Naib Johan Kumpulan C]', date: '3 Julai 2025', time: '02:25 PM' },
-  { no: 32, groupId: 'C/D', category: 'Lelaki Bawah 18 Tahun (Tempat Ke-3)', team1: '[Kalah SA1]', team2: '[Kalah SA2]', date: '3 Julai 2025', time: '02:50 PMM' },
-  { no: 33, groupId: 'C/D', category: 'Lelaki Bawah 18 Tahun (Akhir)', team1: '[Pemenang SA1]', team2: '[Pemenang SA2]', date: '3 Julai 2025', time: '03:15 PM' }
+  { no: 30, groupId: 'F', category: 'Lelaki Bawah 12 Tahun (Kumpulan F)', team1: 'F1) PASUKAN DARO', team2: 'F3) PASUKAN MUKAH', date: '3 Julai 2025', time: '01:00 PM' },
+  { no: 31, groupId: 'G', category: 'Perempuan Bawah 12 Tahun (Kumpulan G)', team1: 'G2) PASUKAN DALAT', team2: 'G3) PASUKAN MUKAH', date: '3 Julai 2025', time: '01:25 PM' },
+  { no: 32, groupId: 'C/D', category: 'Lelaki Bawah 18 Tahun (Separuh Akhir 1)', team1: '[Johan Kumpulan C]', team2: '[Naib Johan Kumpulan D]', date: '3 Julai 2025', time: '01:50 PM' },
+  { no: 33, groupId: 'C/D', category: 'Lelaki Bawah 18 Tahun (Separuh Akhir 2)', team1: '[Johan Kumpulan D]', team2: '[Naib Johan Kumpulan C]', date: '3 Julai 2025', time: '02:15 PM' },
+  { no: 34, groupId: 'C/D', category: 'Lelaki Bawah 18 Tahun (Tempat Ke-3)', team1: '[Kalah SA1]', team2: '[Kalah SA2]', date: '3 Julai 2025', time: '02:40 PMM' },
+  { no: 35, groupId: 'C/D', category: 'Lelaki Bawah 18 Tahun (Akhir)', team1: '[Pemenang SA1]', team2: '[Pemenang SA2]', date: '3 Julai 2025', time: '03:05 PM' }
 ];
 
 function getMatchesByGroup(groupId) {
