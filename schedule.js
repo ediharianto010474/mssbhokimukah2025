@@ -2,7 +2,7 @@
 const groups = {
     'A': {
         name: 'Lelaki Bawah 15 Tahun (Kumpulan A)',
-        teams: ['SMK BELAWAI logo: smkbelawai.jpg', 'SMK NORMAH', 'SMK MUKAH', 'SMK AGAMA IGAN']
+        teams: ['SMK BELAWAI', 'SMK NORMAH', 'SMK MUKAH', 'SMK AGAMA IGAN']
     },
     'B': {
         name: 'Perempuan Bawah 15 Tahun (Kumpulan B)',
