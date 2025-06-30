@@ -187,6 +187,95 @@
         .knockout-match {
             font-weight: bold;
         }
+        
+        /* Popup Styles */
+        #popupKeputusan {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.6);
+            justify-content: center;
+            align-items: center;
+            z-index: 10000;
+        }
+        .popup-content {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            text-align: center;
+            max-width: 700px;
+            width: 90%;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+        .popup-knockout-title {
+            font-size: 1.8em;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: var(--primary-color);
+        }
+        .popup-knockout-type {
+            font-size: 2em;
+            font-weight: bold;
+            margin-bottom: 30px;
+            color: var(--accent-color);
+            text-transform: uppercase;
+        }
+        .popup-knockout-teams {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            margin: 30px 0;
+        }
+        .popup-knockout-team {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 40%;
+        }
+        .popup-knockout-logo {
+            width: 120px;
+            height: 120px;
+            object-fit: contain;
+            margin-bottom: 15px;
+            border: 2px solid #eee;
+            border-radius: 50%;
+            padding: 5px;
+        }
+        .popup-knockout-name {
+            font-weight: bold;
+            font-size: 1.3em;
+            text-align: center;
+            margin-bottom: 15px;
+            min-height: 3em;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .popup-knockout-score {
+            font-size: 2.5em;
+            font-weight: bold;
+            color: var(--secondary-color);
+            background-color: #f8f9fa;
+            padding: 5px 15px;
+            border-radius: 5px;
+        }
+        .popup-knockout-vs {
+            font-size: 1.8em;
+            font-weight: bold;
+            margin: 0 15px;
+            color: var(--dark-color);
+        }
+        .popup-buttons {
+            margin-top: 30px;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+        
+        /* Print Styles */
         @media print {
             body * {
                 visibility: hidden;
@@ -219,6 +308,108 @@
                 size: A4 portrait;
                 margin: 1cm;
             }
+            
+            /* Special print styles for popup */
+            body.printing-popup * {
+                visibility: hidden;
+            }
+            body.printing-popup #popupPrintArea,
+            body.printing-popup #popupPrintArea * {
+                visibility: visible;
+            }
+            body.printing-popup #popupPrintArea {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: white;
+                display: flex !important;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+            }
+            @page popup-page {
+                size: A4 landscape;
+                margin: 0;
+            }
+            body.printing-popup {
+                height: 100vh;
+                width: 100vw;
+            }
+            #popupPrintArea {
+                transform: rotate(0deg);
+                width: 297mm;
+                height: 210mm;
+                page: popup-page;
+            }
+            .popup-print-content {
+                width: 100%;
+                height: 100%;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                padding: 20mm;
+                text-align: center;
+            }
+            .popup-print-title {
+                font-size: 3em;
+                margin-bottom: 20px;
+                color: #2c3e50;
+            }
+            .popup-print-type {
+                font-size: 3.5em;
+                font-weight: bold;
+                margin-bottom: 40px;
+                color: #e74c3c;
+                text-transform: uppercase;
+            }
+            .popup-print-teams {
+                display: flex;
+                justify-content: space-around;
+                align-items: center;
+                width: 100%;
+                margin: 40px 0;
+            }
+            .popup-print-team {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                width: 40%;
+            }
+            .popup-print-logo {
+                width: 150px;
+                height: 150px;
+                object-fit: contain;
+                margin-bottom: 20px;
+                border: 3px solid #eee;
+                border-radius: 50%;
+                padding: 10px;
+            }
+            .popup-print-name {
+                font-size: 2em;
+                margin: 20px 0;
+                text-align: center;
+                font-weight: bold;
+            }
+            .popup-print-score {
+                font-size: 4em;
+                font-weight: bold;
+                color: #3498db;
+                background-color: #f8f9fa;
+                padding: 10px 30px;
+                border-radius: 10px;
+            }
+            .popup-print-vs {
+                font-size: 3em;
+                font-weight: bold;
+                margin: 0 30px;
+            }
+            .popup-print-footer {
+                margin-top: 50px;
+                font-size: 1.5em;
+            }
         }
     </style>
 </head>
@@ -226,14 +417,14 @@
 
 <!-- Flash Page -->
 <div id="flashPage">
-    <img src="https://i.postimg.cc/YS2yT88h/hokimssb2025.jpg"  alt="Banner Kejohanan Hoki MSSD Bahagian Mukah 2025">
+    <img src="https://i.postimg.cc/YS2yT88h/hokimssb2025.jpg" alt="Banner Kejohanan Hoki MSSD Bahagian Mukah 2025">
     <p>Memuatkan sistem...</p>
 </div>
 
 <!-- Main Content -->
 <div class="container no-print" style="display: none;">
     <header>
-        <img src="https://i.postimg.cc/MTFGgRwx/Chat-GPT-Image-Jun-14-2025-12-09-31-AM.png"  alt="Logo Pertandingan Hoki" class="logo">
+        <img src="https://i.postimg.cc/MTFGgRwx/Chat-GPT-Image-Jun-14-2025-12-09-31-AM.png" alt="Logo Pertandingan Hoki" class="logo">
         <h1>Sistem Analisis Pertandingan Hoki</h1>
         <p>Bahagian Mukah 2025 | 2-3 Julai 2025 | 8:00 pagi - 5:00 petang</p>
     </header>
@@ -275,6 +466,64 @@
 <!-- Print Sections -->
 <div id="printSections"></div>
 
+<!-- Popup Keputusan -->
+<div id="popupKeputusan">
+    <div class="popup-content">
+        <div class="popup-knockout-title" id="popupKategori"></div>
+        <div class="popup-knockout-type" id="popupMatchType"></div>
+        
+        <div class="popup-knockout-teams">
+            <div class="popup-knockout-team">
+                <img id="logo1" src="" alt="Logo 1" class="popup-knockout-logo">
+                <div class="popup-knockout-name" id="nama1">Pasukan 1</div>
+                <div class="popup-knockout-score" id="jaringan1">0</div>
+            </div>
+            
+            <div class="popup-knockout-vs">VS</div>
+            
+            <div class="popup-knockout-team">
+                <img id="logo2" src="" alt="Logo 2" class="popup-knockout-logo">
+                <div class="popup-knockout-name" id="nama2">Pasukan 2</div>
+                <div class="popup-knockout-score" id="jaringan2">0</div>
+            </div>
+        </div>
+        
+        <div class="popup-buttons">
+            <button onclick="printPopup()" class="btn btn-print"><i class="fas fa-print"></i> Cetak</button>
+            <button onclick="tutupPopup()" class="btn btn-accent"><i class="fas fa-times"></i> Tutup</button>
+        </div>
+    </div>
+</div>
+
+<!-- Popup Print Area (hidden until printing) -->
+<div id="popupPrintArea" style="display: none;">
+    <div class="popup-print-content">
+        <h1 class="popup-print-title" id="popupPrintKategori"></h1>
+        <h2 class="popup-print-type" id="popupPrintMatchType"></h2>
+        
+        <div class="popup-print-teams">
+            <div class="popup-print-team">
+                <img id="logoPrint1" src="" alt="Logo 1" class="popup-print-logo">
+                <div class="popup-print-name" id="namaPrint1">Pasukan 1</div>
+                <div class="popup-print-score"><span id="jaringanPrint1">0</span></div>
+            </div>
+            
+            <div class="popup-print-vs">VS</div>
+            
+            <div class="popup-print-team">
+                <img id="logoPrint2" src="" alt="Logo 2" class="popup-print-logo">
+                <div class="popup-print-name" id="namaPrint2">Pasukan 2</div>
+                <div class="popup-print-score"><span id="jaringanPrint2">0</span></div>
+            </div>
+        </div>
+        
+        <div class="popup-print-footer">
+            Kejohanan Hoki MSSD Bahagian Mukah 2025<br>
+            2-3 Julai 2025
+        </div>
+    </div>
+</div>
+
 <!-- Load external schedule.js before main script -->
 <script src="schedule.js"></script>
 
@@ -293,6 +542,20 @@
 
     // Tournament data structure
     const tournamentData = {};
+
+    // Logo Pasukan
+    const logoPasukan = {
+        "SMK BELAWAI": "https://i.postimg.cc/CKMxRtkb/BELAWAI.jpg",
+        "SMK 3 RIVERS": "https://i.postimg.cc/rFgb8PVB/3RIVERS.png",
+        "SMK AGAMA IGAN": "https://i.postimg.cc/2SrZx0nS/AGAMA-IGAN.jpg",
+        "SMK BATANG IGAN": "https://i.postimg.cc/htNqB5MS/BATANG-IGAN.png",
+        "SMK DALAT": "https://i.postimg.cc/wj8VY5JC/DALAT.jpg",
+        "PASUKAN DARO": "https://i.postimg.cc/T12PD4Zz/DARO.png",
+        "SMK MUKAH": "https://i.postimg.cc/sXQk095M/MUKAH.png",
+        "SMK NORMAH": "https://i.postimg.cc/rwR5sDGS/NORMAH.png",
+        "PASUKAN DALAT": "https://i.postimg.cc/90TrV9HM/PPDDALAT.jpg",
+        "PASUKAN MUKAH": "https://i.postimg.cc/QNB61dqd/PPDMUKAH.jpg"
+    };
 
     // Generate matches logic
     function generateGroupMatches(groupId) {
@@ -664,14 +927,66 @@
         saveToLocalStorage();
         
         let matchName = `Perlawanan ${matchIndex + 1}`;
-        if (match.type === 'semifinal') matchName = `Separuh Akhir ${match.matchId === 'sf1' ? '1' : '2'}`;
-        else if (match.type === 'final') matchName = 'Akhir';
-        else if (match.type === 'thirdplace') matchName = 'Tempat Ketiga';
+        let matchType = '';
+        if (match.type === 'semifinal') {
+            matchName = `Separuh Akhir ${match.matchId === 'sf1' ? '1' : '2'}`;
+            matchType = `SEMI FINAL ${match.matchId === 'sf1' ? '1' : '2'}`;
+        } else if (match.type === 'final') {
+            matchName = 'Akhir';
+            matchType = 'AKHIR';
+        } else if (match.type === 'thirdplace') {
+            matchName = 'Tempat Ketiga';
+            matchType = 'TEMPAT KETIGA';
+        }
         
         document.getElementById('resultMessage').innerHTML = `
             <strong>Keputusan berjaya dikemaskini!</strong><br>
             ${matchName}: ${match.team1} ${score1}-${score2} ${match.team2}
         `;
+
+        // Show popup
+        const nama1 = match.team1.split(') ')[1] || match.team1;
+        const nama2 = match.team2.split(') ')[1] || match.team2;
+
+        document.getElementById('popupKategori').innerText = tournamentData[groupId].name;
+        document.getElementById('popupMatchType').innerText = matchType;
+        document.getElementById('nama1').innerText = nama1;
+        document.getElementById('nama2').innerText = nama2;
+        document.getElementById('jaringan1').innerText = score1;
+        document.getElementById('jaringan2').innerText = score2;
+        document.getElementById('logo1').src = logoPasukan[nama1] || "https://via.placeholder.com/120?text=Logo";
+        document.getElementById('logo2').src = logoPasukan[nama2] || "https://via.placeholder.com/120?text=Logo";
+
+        // Update print version
+        document.getElementById('popupPrintKategori').innerText = tournamentData[groupId].name;
+        document.getElementById('popupPrintMatchType').innerText = matchType;
+        document.getElementById('namaPrint1').innerText = nama1;
+        document.getElementById('namaPrint2').innerText = nama2;
+        document.getElementById('jaringanPrint1').innerText = score1;
+        document.getElementById('jaringanPrint2').innerText = score2;
+        document.getElementById('logoPrint1').src = logoPasukan[nama1] || "https://via.placeholder.com/150?text=Logo";
+        document.getElementById('logoPrint2').src = logoPasukan[nama2] || "https://via.placeholder.com/150?text=Logo";
+
+        document.getElementById('popupKeputusan').style.display = 'flex';
+    }
+
+    function printPopup() {
+        document.body.classList.add('printing-popup');
+        document.getElementById('popupPrintArea').style.display = 'block';
+        
+        setTimeout(() => {
+            window.print();
+            
+            // Reset after printing
+            setTimeout(() => {
+                document.body.classList.remove('printing-popup');
+                document.getElementById('popupPrintArea').style.display = 'none';
+            }, 500);
+        }, 100);
+    }
+
+    function tutupPopup() {
+        document.getElementById('popupKeputusan').style.display = 'none';
     }
 
     function resetAllResults() {
@@ -788,6 +1103,5 @@
         initUI();
     });
 </script>
-
 </body>
 </html>
