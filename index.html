@@ -695,8 +695,8 @@
         data.matches.forEach(match => {
             if (match.completed) {
                 const s = data.standings;
-                const team1 = match.team1.split(') ')[1];
-                const team2 = match.team2.split(') ')[1];
+                const team1 = match.team1.split(') ')[1] || match.team1;
+                const team2 = match.team2.split(') ')[1] || match.team2;
                 const { score1, score2 } = match;
 
                 s[team1].played += 1;
@@ -927,7 +927,7 @@
         saveToLocalStorage();
         
         let matchName = `Perlawanan ${matchIndex + 1}`;
-        let matchType = '';
+        let matchType = 'PERLAWANAN KUMPULAN';
         if (match.type === 'semifinal') {
             matchName = `Separuh Akhir ${match.matchId === 'sf1' ? '1' : '2'}`;
             matchType = `SEMI FINAL ${match.matchId === 'sf1' ? '1' : '2'}`;
